@@ -28,7 +28,9 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <?php echo User::getUserById($_SESSION['user'])['email']; ?>
                             </a>
+
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="/account/mylinks">My links</a>
                                 <a class="dropdown-item" href="/user/logout">Log out</a>
                             </div>
                         </li>

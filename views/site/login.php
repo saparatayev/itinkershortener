@@ -1,5 +1,12 @@
 <?php include ROOT . '/views/layouts/header.php'; ?>
 
+    <?php if(isset($_SESSION['success'])): ?>
+        <p class="alert alert-success mt-2"><?php echo $_SESSION['success']; unset($_SESSION['success']); ?></p>
+    <?php endif; ?>
+    <?php if(isset($_SESSION['error_message'])): ?>
+        <p class="alert alert-danger mt-2"><?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?></p>
+    <?php endif; ?>
+
 <div class="text-center">
     <form action="#" method="post" class="form-signin">
 

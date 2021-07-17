@@ -17,6 +17,9 @@ class SiteController {
         unset($_SESSION['error_message']);
         
         if(isset($_POST['submit'])) {
+            // Получаем идентификатор пользователя из сессии
+            $userId = User::checkLogged();
+
             $long_url = $_POST['long_url'];
 
             // Флаг ошибок в форме
@@ -28,11 +31,11 @@ class SiteController {
 
             if($errors == false) {
                 // if long url already exists in db
-                $shortCode = Shortcode::urlExistsInDb($long_url);
+                // $shortCode = Shortcode::urlExistsInDb($long_url);
 
-                if(!$shortCode) {
-                    $shortCode = Shortcode::createShortCode($long_url);
-                }
+                // if(!$shortCode) {
+                $shortCode = Shortcode::createShortCode($long_url, $userId);
+                // }
                 
                 if($shortCode) {
                     $_SESSION['success'] = 'http://' . $_SERVER['HTTP_HOST']. '/'. $shortCode;
@@ -67,7 +70,7 @@ class SiteController {
 
             header("Location: " . $url);
         } else {
-            $_SESSION['error_message'] = 'Not found';
+            // $_SESSION['error_message'] = 'Not found';
             header("Location: /");
         }
     }

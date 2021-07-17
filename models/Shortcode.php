@@ -21,7 +21,7 @@ class Shortcode {
         return $short_code ? $short_code['short_code'] : false;
     }
 
-    public static function createShortCode($url) {
+    public static function createShortCode($url, $userId) {
         $count = strlen(Shortcode::LETTERS);
         $intval = time();
         $short_c = '';
@@ -35,13 +35,14 @@ class Shortcode {
         $db = Db::getConnection();
 
         $sql = 'INSERT INTO short_urls '
-                . '(long_url, short_code, counter) '
+                . '(long_url, short_code, counter, user_id) '
                 . 'VALUES '
-                . '(:url, :short_c, 0)';
+                . '(:url, :short_c, 0, :user_id)';
 
         $result = $db->prepare($sql);
         $result->bindParam(':url', $url, PDO::PARAM_STR);
         $result->bindParam(':short_c', $result_short_code, PDO::PARAM_STR);
+        $result->bindParam(':user_id', $userId, PDO::PARAM_INT);
         if ($result->execute()) {
             $id = $db->lastInsertId();
             $stmt = $db->prepare("SELECT * FROM short_urls WHERE id=?");
@@ -78,5 +79,27 @@ class Shortcode {
         $result->bindParam(':key', $key, PDO::PARAM_STR);
         
         return $result->execute();
+    }
+
+    public static function getLinksByUserId($userId) {
+        $db = Db::getConnection();
+
+        $sql = 'SELECT * FROM short_urls '
+                . 'WHERE user_id = :user_id';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':user_id', $userId, PDO::PARAM_INT);
+
+        $result->execute();
+
+        $i = 0;
+        $links = array();
+        while ($row = $result->fetch()) {
+            $links[$i]['long_url'] = $row['long_url'];
+            $links[$i]['short_code'] = $row['short_code'];
+            $links[$i]['counter'] = $row['counter'];
+            $i++;
+        }
+        return $links;
     }
 }

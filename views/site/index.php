@@ -17,13 +17,16 @@
     <?php endif; ?>
 
     <div class="text-center">
-
-        <form action="#" method="POST" class="form-signin">
-            <h1 class="h3 mb-3 font-weight-normal">Enter long url</h1>
-            <textarea name="long_url" class="form-control my-1" required><?php if(isset($long_url)) {echo $long_url;} ?></textarea>
-            <input type="submit" class="btn my-3 btn-primary" name="submit">
-        </form>
-
+        <?php if (User::isGuest()): ?>
+            <h1>Get started free? Please <a href="/user/register">Sign up</a> <br>
+            or <a href="/user/login">Log in</a></h1>
+        <?php else: ?>
+            <form action="#" method="POST" class="form-signin">
+                <h1 class="h3 mb-3 font-weight-normal">Enter long url</h1>
+                <textarea name="long_url" class="form-control my-1" required><?php if(isset($long_url)) {echo $long_url;} ?></textarea>
+                <input type="submit" class="btn my-3 btn-primary" name="submit">
+            </form>
+        <?php endif; ?>
     </div>
 
 

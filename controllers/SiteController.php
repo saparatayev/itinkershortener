@@ -62,6 +62,9 @@ class SiteController {
         $url = Shortcode::getUrlByKey($key);
 
         if($url) {
+            // увеличить счетчик количества преходов по ссылке
+            Shortcode::incrementCount($key);
+
             header("Location: " . $url);
         } else {
             $_SESSION['error_message'] = 'Not found';

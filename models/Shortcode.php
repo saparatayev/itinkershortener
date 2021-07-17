@@ -65,4 +65,18 @@ class Shortcode {
 
         return $url ? $url['long_url'] : false;
     }
+
+    public static function incrementCount($key) {
+        $db = Db::getConnection();
+
+        $sql = "UPDATE short_urls
+            SET 
+                counter = counter + 1 
+            WHERE short_code = :key";
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':key', $key, PDO::PARAM_STR);
+        
+        return $result->execute();
+    }
 }

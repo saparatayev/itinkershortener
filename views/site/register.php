@@ -11,11 +11,11 @@
             </ul>
         <?php endif; ?>
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <input type="text" name="email" class="form-control my-1" placeholder="Email" value="<?php echo $email; ?>">
-        <input type="password" name="password" class="form-control my-1" placeholder="Password" value="<?php echo $password; ?>">
-        <button class="btn btn-primary mx-2" name="submit" type="submit">Sign in</button>
-        <a href="/user/register" class="mx-2">No account? Register</a>
+        <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
+        <input type="text" name="email" class="form-control my-1" placeholder="Email" value="<?php echo $email; ?>" required>
+        <input type="password" name="password" class="form-control my-1" placeholder="Password" value="<?php echo $password; ?>" required>
+        <button class="btn btn-primary" name="submit" type="submit">Sign up</button>
+        <a href="/user/login" class="mx-2">Login</a>
     </form>
 </div>
 

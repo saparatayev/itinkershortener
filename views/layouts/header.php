@@ -21,12 +21,12 @@
 
                     <?php if (User::isGuest()): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/user/login">Login</a>
+                            <a class="nav-link" href="/user/login">Account</a>
                         </li>
                     <?php else: ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <?php echo User::getUserById($_SESSION['user'])['login']; ?>
+                                <?php echo User::getUserById($_SESSION['user'])['email']; ?>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="/user/logout">Log out</a>
